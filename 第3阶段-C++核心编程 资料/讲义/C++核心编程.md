@@ -4199,8 +4199,8 @@ class Base
 public:
 	//纯虚函数
 	//类中只要有一个纯虚函数就称为抽象类
-	//抽象类无法实例化对象
-	//子类必须重写父类中的纯虚函数，否则也属于抽象类
+	//1. 抽象类无法实例化对象
+	//2. 子类必须重写父类中的纯虚函数，否则也属于抽象类
 	virtual void func() = 0;
 };
 
@@ -4215,6 +4215,8 @@ public:
 
 void test01()
 {
+    // Base b;   // 抽象类是无法实例化对象的(不管是栈上还是堆上)
+    // new Base; // 抽象类是无法实例化对象的(不管是栈上还是堆上)
 	Base * base = NULL;
 	//base = new Base; // 错误，抽象类无法实例化对象
 	base = new Son;
@@ -4425,6 +4427,7 @@ public:
 	virtual ~Animal() = 0;
 };
 
+// 纯析构也必须有一个代码实现
 Animal::~Animal()
 {
 	cout << "Animal 纯虚析构函数调用！" << endl;
@@ -4461,6 +4464,8 @@ void test01()
 	Animal *animal = new Cat("Tom");
 	animal->Speak();
 
+    // 如果没有使用纯虚析构, 父类指针在析构的时候, 不会调用子类中析构函数, 导致子类如果有堆区属性, 出现内存泄漏
+    
 	//通过父类指针去释放，会导致子类对象可能清理不干净，造成内存泄漏
 	//怎么解决？给基类增加一个虚析构函数
 	//虚析构函数就是用来解决通过父类指针释放子类对象
@@ -4810,7 +4815,7 @@ int main() {
 总结：
 
 * 文件操作必须包含头文件 fstream
-* 读文件可以利用 ofstream  ，或者fstream类
+* 写文件可以利用 ofstream  ，或者fstream类
 * 打开文件时候需要指定操作文件的路径，以及打开方式
 * 利用<<可以向文件中写数据
 * 操作完毕，要关闭文件
@@ -4866,6 +4871,7 @@ int main() {
 **示例：**
 
 ```C++
+#include <iostream>
 #include <fstream>
 #include <string>
 void test01()
@@ -4900,7 +4906,10 @@ void test01()
 	//	cout << buf << endl;
 	//}
 
+    // 第四种
 	char c;
+    // ifs.get() 一个一个字符读
+    // EOF是end of file的缩写,表示"文字流"(stream)的结尾
 	while ((c = ifs.get()) != EOF)
 	{
 		cout << c;
