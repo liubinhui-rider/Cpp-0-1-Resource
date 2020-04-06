@@ -110,6 +110,7 @@ void swapDouble(double& a, double& b) {
 }
 
 //利用模板提供通用的交换函数
+// 声明一个模板, 告诉编译器后面代码中 紧跟着的T不要报错, T是一个通用数据类型
 template<typename T>
 void mySwap(T& a, T& b)
 {
@@ -1174,7 +1175,7 @@ int main() {
 }
 ```
 
-总结：主流的解决方式是第二种，将类模板成员函数写到一起，并将后缀名改为.hpp
+总结：主流的解决方式是第二种，将类模板成员函数写到一起，并将后缀名改为.hpp(约定俗成, hpp类模板文件)
 
 
 
@@ -1228,6 +1229,7 @@ class Person
 
 
 	//全局函数配合友元  类外实现
+    // 加一个空模板的参数列表<>
 	friend void printPerson2<>(Person<T1, T2> & p);
 
 public:
