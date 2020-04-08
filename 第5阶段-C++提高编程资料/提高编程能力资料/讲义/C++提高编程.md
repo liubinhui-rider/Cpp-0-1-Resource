@@ -4047,7 +4047,7 @@ int main() {
 
 
 
-STL中的链表是一个双向循环链表
+STL中的链表是一个双向循环链表(图中的有误, 第一个前一个结点指向最后一个节点, 最后一个节点的后一个节点指向第一个)
 
 
 
@@ -8398,6 +8398,7 @@ void test01()
 	vTarget.resize( max(v1.size() , v2.size()));
 
 	//返回目标容器的最后一个元素的迭代器地址
+    // v2中没有的
 	cout << "v1与v2的差集为： " << endl;
 	vector<int>::iterator itEnd = 
         set_difference(v1.begin(), v1.end(), v2.begin(), v2.end(), vTarget.begin());
@@ -8405,6 +8406,7 @@ void test01()
 	cout << endl;
 
 
+    // v1中没有的
 	cout << "v2与v1的差集为： " << endl;
 	itEnd = set_difference(v2.begin(), v2.end(), v1.begin(), v1.end(), vTarget.begin());
 	for_each(vTarget.begin(), itEnd, myPrint());
